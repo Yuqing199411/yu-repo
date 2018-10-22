@@ -1,28 +1,59 @@
 ---
 title: "Graphics with plot"
+author: 'Yuqing'
+date: '10/22/2018'
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# Learning plot 
+
+We are learning plot. It's going to be amazing.
+
+``` {r steup, include=False}
+knitr:: opts_chunk$set(echo=TRUE)
 ```
 
-## R Markdown
+## Load Packages
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r packages}
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# install.packages('tidyverse')
+## tidyverse is a 'packages of packages ' and contians many of the packages we will use in the work shop , incluseding ggplt
 
-```{r cars}
-summary(cars)
+# load installed pakages using 'labrafy()'
+library(tidyverse)
+
 ```
 
-## Including Plots
+## Load NP data
 
-You can also embed plots, for example:
+# install and load tidyverse
+install.packages(“tidyverse”) # note on Windows and linux use double quotes
+library(tidyverse)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+#National Parks in California
+ca <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/ca.csv") 
+
+#Acadia National Park
+acadia <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/acadia.csv")
+
+#Southeast US National Parks
+se <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/se.csv")
+
+#2016 Visitation for all Pacific West National Parks
+visit_16 <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/visit_16.csv")
+
+#All Nationally designated sites in Massachusetts
+mass <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/mass.csv")
+
+
+
+start with the Califoria ('Ca') dataset
+
+``` {r}
+head (ca)
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
