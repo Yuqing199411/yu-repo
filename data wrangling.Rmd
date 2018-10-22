@@ -1,0 +1,46 @@
+
+title: "data wrangling"---
+output: html_document
+---
+
+
+```{r}
+
+library(tidyverse)  # install.packages('tidyverse')
+
+
+```
+
+
+```{r}
+## read gapminder csv. Note the readr:: prefix identifies which package it's in
+gapminder <- readr::read_csv('https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/gapminder.csv')
+
+
+# inspect the data
+gapminder  # looks at all the data
+head(gapminder)
+tail(gapminder,10)  # default is 6
+
+head(gapminder,3)
+
+# summary statistics
+str(gapminder)
+summary(gapminder)
+install.packages('skimr')
+skimr::skim(gapminder)
+
+names(gapminder)
+dim(gapminder)
+ncol(gapminder)
+
+# reverse-engineer dim
+c(nrow(gapminder),ncol(gapminder))
+```
+## Dplyr!
+
+
+
+
+
+```
