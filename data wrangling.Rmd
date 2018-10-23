@@ -167,5 +167,52 @@ gap_max_gdp <- gapminder %>%
   dplyr::ungroup() 
 
 
+## joing data
 
+```{r}
+
+## read in the data. (same URL as yesterday, with co2.csv instead of gapminder.csv)
+co2 <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/co2.csv")
+
+## explore
+co2 %>% head()
+co2 %>% dim() # 12
+
+## create new variable that is only 2007 data
+gap_2007 = gapminder %>%
+  filter(year == 2007) 
+ gap_2007 %>% dim()  # 142  ,
+
+
+#left join
+lj<- left_join(gap_2007,co2,by='country')
+# another way to wirte this
+
+lj <- gap_2007 %>%
+  left_join(co2,by='country')
+
+# right_join
+rj<- right_join(gap_2007,co2,by='country')
+# this is the same as 
+
+lj2<-left_join(co2,gap_2007,by='country')
+
+
+
+
+## explore
+lj %>% dim() #142
+lj %>% summary() # lots of NAs in the co2_2017 columm
+lj %>% View() 
+
+## right_join gap_2007 and co2
+rj <- right_join(gap_2007, co2, by = "country")
+
+## explore
+rj %>% dim() # 12
+rj %>% summary()
+rj %>% View() 
+
+
+```
 
