@@ -148,7 +148,23 @@ gap_summarised <- gapminder %>%
 ```
 
 
+## gapminder-wrangle.R
+## J. Lowndes lowndes@nceas.ucsb.edu
 
+
+## load libraries
+library(tidyverse) ## install.packages('tidyverse')
+
+## read in data
+gapminder <- readr::read_csv('https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/gapminder.csv') 
+
+## summarize
+gap_max_gdp <- gapminder %>% 
+  dplyr::select(-continent, -lifeExp) %>% # or select(country, year, pop, gdpPercap)
+  dplyr::group_by(country) %>%
+  dplyr::mutate(gdp = pop * gdpPercap) %>%
+  dplyr::summarize(max_gdp = max(gdp)) %>%
+  dplyr::ungroup() 
 
 
 
