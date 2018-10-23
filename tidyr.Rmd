@@ -1,0 +1,139 @@
+---
+title: "tidydata"
+output: html_document
+---
+```{r}
+
+library(tidyverse)
+
+
+## read in gapminder data in wide format
+gap_wide <- readr::read_csv('https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/gapminder_wide.csv')
+
+
+```
+## tidyr:: gatere()
+
+```{r}
+
+gap_long <- gap_wide %>%
+  gather(key=obstype_year,
+         value=obs_values,
+         -continent, -country)
+
+```
+
+## tidyr:: separate()
+```{r}
+
+gap_long <- gap_wide %>%
+  gather(key=obstype_year,
+         value=obs_values, 
+         -continent, -country)  %>% 
+  separate(col=obstype_year,
+           into=c('obstype','year'),
+           sep='_',
+           convert = TRUE)
+
+```
+
+## plot long data
+```{r}
+canada_df <- gap_long  %>% 
+  filter(country=='Canada',
+         obstype=='lifeExp')
+
+ggplot(data=canada_df,aes(x=year,y=obs_values))+
+  geom_line()
+  
+
+```
+
+
+# plot the life expectancy of all conutries inthe americans
+```{r}
+life_df <- gap_long  %>% 
+  filter(obstype=='lifeExp',
+         continent=='Americas')
+
+ggplot(data = life_df,aes(x=year,y=obs_values,color=country))+
+  geom_line()
+
+
+
+```
+
+
+
+Using gap_long, calculate and plot the the mean life expectancy for each continent over time from 1982 to 2007. Give your plot a title and assign x and y labels. Hint: use the dplyr::group_by() and dplyr::summarize() functions.
+STOP: Knit the R Markdown file and sync to Github (pull, stage, commit, push)
+
+
+```{r}
+
+
+ life_ev <- gap_long %>% 
+  group_by(continent,obstype)  %>% 
+  summarize(mean_lf=mean(obs_values))
+
+    
+  cont<- gap_long %>% 
+    filter(obstype=='lifeExp',
+           year>1980 & year<2006) %>% 
+    group_by(continent,year) %>% 
+    summarize(mean_le=mean(obs_values))
+  
+ggplot(data=cont,aes(x=year,y=mean_le, color=continent))+
+  geom_line()+
+  labs(title='Mean life Expectancy',
+       x='year',
+       y='Age (years)')+
+  theme_bw()
+
+
+```
+
+## spread
+```{r}
+
+gap_normal<- gap_long %>% 
+  spread(key = obstype,
+         value=obs_values)
+
+```
+
+
+
+## unite
+```{r}
+
+gap_uni <- gap_long %>% 
+  unite(obstype_year,obstype,year) %>% 
+  spread(key=obstype_year,
+         value=obs_values)
+
+
+gap_wide_new <- gap_long  %>% 
+  unite(col=var_names,obstype,year,sep='_') %>% 
+  spread(key=var_names,
+         value=obs_values)
+
+
+```
+
+
+gap_long <- gap_wide %>%
+  gather(key=obstype_year,
+         value=obs_values, 
+         -continent, -country)  %>% 
+  separate(col=obstype_year,
+           into=c('obstype','year'),
+           sep='_',
+           convert = TRUE)
+
+
+
+
+
+
+
